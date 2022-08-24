@@ -122494,6 +122494,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveInput: {fileID: 6742468954257847731, guid: e8d6fea7ba494d84387dd4b095723fb0, type: 3}
   _jumpInput: {fileID: 5087404251867678871, guid: e8d6fea7ba494d84387dd4b095723fb0, type: 3}
+  _root: {fileID: 1224114166}
+  _speed: 10
 --- !u!114 &1437412713
 MonoBehaviour:
   m_ObjectHideFlags: 0
