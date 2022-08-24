@@ -12,7 +12,6 @@ public class playerMovement : MonoBehaviour
     [SerializeField] float _MovingThreshold;
     Vector2 _playerMovement;
     [SerializeField] Animator _animator;
-    
 
 
     private void Reset()
@@ -42,6 +41,7 @@ public class playerMovement : MonoBehaviour
 
 
         // Animator
+        Debug.Log($"Magnitude : {direction.magnitude}");
         if (direction.magnitude> _MovingThreshold)  // si on est ent train de bouger alors 
         {
             _animator.SetBool("isWalking", true);
@@ -51,6 +51,19 @@ public class playerMovement : MonoBehaviour
             _animator.SetBool("isWalking", false);
 
         }
+
+        //Orientaiton FLipp
+
+        if (direction.x > 0)     //right
+        {
+          _root.localScale = new Vector3(1, 1, 1);
+        }
+        else if (direction.x < 0)   //left
+        {
+            _root.localScale = (new Vector3(-1, 1, 1));
+        }
+
+
     }
 
     void StartMove(InputAction.CallbackContext obj)
