@@ -33,7 +33,7 @@ public class playerMovement : MonoBehaviour
         //Debug.Log($"Update !{ _playerMovement}");
 
         Vector2 direction = new Vector2(_playerMovement.x, 0);
-       _root.transform.Translate( _playerMovement * Time.fixedDeltaTime * _speed);
+       _root.transform.Translate( direction * Time.fixedDeltaTime * _speed);
     }
 
     void StartMove(InputAction.CallbackContext obj)
