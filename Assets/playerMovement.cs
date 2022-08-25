@@ -12,6 +12,11 @@ public class playerMovement : MonoBehaviour
     [SerializeField] float _MovingThreshold;
     Vector2 _playerMovement;
     [SerializeField] Animator _animator;
+     Vector2 _JumpForce;
+    [SerializeField] float _JumpSpeed;
+    [SerializeField] Rigidbody2D _rb;
+    [SerializeField] bool IsGrounded;
+    
 
 
     private void Reset()
@@ -29,9 +34,48 @@ public class playerMovement : MonoBehaviour
         _moveInput.action.started += StartMove;
         _moveInput.action.performed += UpdateMove;
         _moveInput.action.canceled += EndMove;
+
+        _jumpInput.action.started += JumpStart;
+        _jumpInput.action.performed += UpdateJump;
+        _jumpInput.action.performed += EndJump;
+
     }
 
-       void FixedUpdate()
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground"))
+        {
+            IsGrounded = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Ground"))
+        {
+            IsGrounded = false;
+        }
+    }
+
+    private void EndJump(InputAction.CallbackContext obj)
+    {
+        _JumpForce = new Vector2(0,0);
+    }
+
+    private void UpdateJump(InputAction.CallbackContext obj)
+    {
+       if (IsGrounded == true)
+        {
+            _rb.AddForce(transform.up * _JumpSpeed, ForceMode2D.Impulse);
+        }
+    }
+
+    private void JumpStart(InputAction.CallbackContext obj)
+    {
+        _JumpForce = obj.ReadValue<Vector2>();  
+    }
+
+    void FixedUpdate()
     {
         //Debug.Log($"Update !{ _playerMovement}");
 
@@ -41,12 +85,15 @@ public class playerMovement : MonoBehaviour
         // _root.transform.Translate(direction * Time.fixedDeltaTime * _speed);
 
         _root.transform.Translate(direction * Time.fixedDeltaTime * _speed, Space.World);
+        
+        //jump
 
+        
 
 
         // Animator
         Debug.Log($"Magnitude : {direction.magnitude}");
-        if (direction.magnitude> _MovingThreshold)  // si on est ent train de bouger alors 
+        if (direction.magnitude> _MovingThreshold && IsGrounded== true)  // si on est ent train de bouger alors 
         {
             _animator.SetBool("isWalking", true);
         }
@@ -58,31 +105,30 @@ public class playerMovement : MonoBehaviour
 
         //Orientaiton FLipp avec le scale 
 
-      //  if (direction.x > 0)     //right
-      //  {
-      //    _root.localScale = new Vector3(1, 1, 1);
-      //  }
-      //  else if (direction.x < 0)   //left
-      //  {
-      //    _root.localScale = (new Vector3(-1, 1, 1));
-      // }
+        //  if (direction.x > 0)     //right
+        //  {
+        //    _root.localScale = new Vector3(1, 1, 1);
+        //  }
+        //  else if (direction.x < 0)   //left
+        //  {
+        //    _root.localScale = (new Vector3(-1, 1, 1));
+        // }
 
 
         // orientation Flipp avec la rotation du personnage
         if (direction.x > 0)     //right
         {
-            _root.rotation = Quaternion.Euler(0,0,0) ;
+            _root.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (direction.x < 0)   //left
         {
             _root.rotation = Quaternion.Euler(0, 180, 0);
-        }
+        } 
+   }
 
 
 
-    }
-
-    void StartMove(InputAction.CallbackContext obj)
+  public  void StartMove(InputAction.CallbackContext obj)
     {
         _playerMovement = obj.ReadValue<Vector2>();
         //Debug.Log($"Appelé ! {_playerMovement}");
@@ -103,3 +149,4 @@ public class playerMovement : MonoBehaviour
 
 
 }
+ 
