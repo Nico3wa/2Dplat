@@ -37,7 +37,11 @@ public class playerMovement : MonoBehaviour
 
         //mouvement
         Vector2 direction = new Vector2(_playerMovement.x, 0);
-       _root.transform.Translate( direction * Time.fixedDeltaTime * _speed);
+
+        // _root.transform.Translate(direction * Time.fixedDeltaTime * _speed);
+
+        _root.transform.Translate(direction * Time.fixedDeltaTime * _speed, Space.World);
+
 
 
         // Animator
@@ -52,16 +56,28 @@ public class playerMovement : MonoBehaviour
 
         }
 
-        //Orientaiton FLipp
+        //Orientaiton FLipp avec le scale 
 
+      //  if (direction.x > 0)     //right
+      //  {
+      //    _root.localScale = new Vector3(1, 1, 1);
+      //  }
+      //  else if (direction.x < 0)   //left
+      //  {
+      //    _root.localScale = (new Vector3(-1, 1, 1));
+      // }
+
+
+        // orientation Flipp avec la rotation du personnage
         if (direction.x > 0)     //right
         {
-          _root.localScale = new Vector3(1, 1, 1);
+            _root.rotation = Quaternion.Euler(0,0,0) ;
         }
         else if (direction.x < 0)   //left
         {
-            _root.localScale = (new Vector3(-1, 1, 1));
+            _root.rotation = Quaternion.Euler(0, 180, 0);
         }
+
 
 
     }
