@@ -55,6 +55,11 @@ public class playerMovement : MonoBehaviour
         {
             IsGrounded = false;
         }
+        if (col.gameObject.CompareTag("Bierre"))
+        {
+            ScoreScipt._scoreValue += 1;
+            Destroy(gameObject);
+        }
     }
 
     private void EndJump(InputAction.CallbackContext obj)
