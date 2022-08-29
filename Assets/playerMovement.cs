@@ -16,8 +16,8 @@ public class playerMovement : MonoBehaviour
     [SerializeField] float _JumpSpeed;
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] bool IsGrounded;
-    
 
+     int _doubleJump = 1;
 
     private void Reset()
     {
@@ -37,7 +37,7 @@ public class playerMovement : MonoBehaviour
 
         _jumpInput.action.started += JumpStart;
         _jumpInput.action.performed += UpdateJump;
-        _jumpInput.action.performed += EndJump;
+        _jumpInput.action.canceled += EndJump;
 
     }
 
@@ -55,11 +55,6 @@ public class playerMovement : MonoBehaviour
         {
             IsGrounded = false;
         }
-        if (col.gameObject.CompareTag("Bierre"))
-        {
-            ScoreScipt._scoreValue += 1;
-            Destroy(gameObject);
-        }
     }
 
     private void EndJump(InputAction.CallbackContext obj)
@@ -69,15 +64,21 @@ public class playerMovement : MonoBehaviour
 
     private void UpdateJump(InputAction.CallbackContext obj)
     {
-       if (IsGrounded == true)
-        {
+      if (IsGrounded == false && _doubleJump >= 1) 
+            {
             _rb.AddForce(transform.up * _JumpSpeed, ForceMode2D.Impulse);
+            _doubleJump--;
         }
     }
 
     private void JumpStart(InputAction.CallbackContext obj)
     {
-        _JumpForce = obj.ReadValue<Vector2>();  
+        //_JumpForce = obj.ReadValue<Vector2>();  
+        if (IsGrounded == true)
+        {
+            _rb.AddForce(transform.up * _JumpSpeed, ForceMode2D.Impulse);
+          }
+
     }
 
     void FixedUpdate()
@@ -91,13 +92,17 @@ public class playerMovement : MonoBehaviour
 
         _root.transform.Translate(direction * Time.fixedDeltaTime * _speed, Space.World);
         
+        if (IsGrounded == true)
+        {
+            _doubleJump = 1;
+        }
         //jump
 
         
 
 
         // Animator
-        Debug.Log($"Magnitude : {direction.magnitude}");
+        // Debug.Log($"Magnitude : {direction.magnitude}");
         if (direction.magnitude> _MovingThreshold && IsGrounded== true)  // si on est ent train de bouger alors 
         {
             _animator.SetBool("isWalking", true);
