@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Bierre
+  - Weapon
   layers:
   - Default
   - TransparentFX

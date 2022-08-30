@@ -7,6 +7,7 @@ public class playerMovement : MonoBehaviour
 {
     [SerializeField] InputActionReference _moveInput;
     [SerializeField] InputActionReference _jumpInput;
+    [SerializeField] InputActionReference _AttackInput;
     [SerializeField] Transform _root;
     [SerializeField] float _speed;
     [SerializeField] float _MovingThreshold;
@@ -38,6 +39,12 @@ public class playerMovement : MonoBehaviour
         _jumpInput.action.started += JumpStart;
         _jumpInput.action.performed += UpdateJump;
         _jumpInput.action.canceled += EndJump;
+
+        //attack
+
+        _AttackInput.action.started += AttackStart;
+        _AttackInput.action.performed += UpdateAttack;
+        _AttackInput.action.canceled += EndAttack;
 
     }
 
@@ -80,6 +87,18 @@ public class playerMovement : MonoBehaviour
           }
 
     }
+    private void AttackStart(InputAction.CallbackContext obj)
+    {
+
+    }
+    private void UpdateAttack(InputAction.CallbackContext obj)
+    {
+        _animator.SetBool("isAttacking", true);
+    }
+    private void EndAttack(InputAction.CallbackContext obj)
+    {
+        _animator.SetBool("isAttacking", false);
+    }
 
     void FixedUpdate()
     {
@@ -102,6 +121,7 @@ public class playerMovement : MonoBehaviour
 
 
         // Animator
+        // Walking
         // Debug.Log($"Magnitude : {direction.magnitude}");
         if (direction.magnitude> _MovingThreshold && IsGrounded== true)  // si on est ent train de bouger alors 
         {
@@ -112,6 +132,9 @@ public class playerMovement : MonoBehaviour
             _animator.SetBool("isWalking", false);
 
         }
+
+
+
 
         //Orientaiton FLipp avec le scale 
 
