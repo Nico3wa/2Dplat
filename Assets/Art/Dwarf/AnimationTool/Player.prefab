@@ -68,6 +68,8 @@ GameObject:
   - component: {fileID: 7517621873895732461}
   - component: {fileID: 7517621873895732450}
   - component: {fileID: 7517621873895732451}
+  - component: {fileID: 2846336470641279970}
+  - component: {fileID: 8690863555346568091}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -132,6 +134,58 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2846336470641279970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517621873895732460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ccaed7af703bbe4daa00e2e767e43c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveInput: {fileID: 6742468954257847731, guid: e8d6fea7ba494d84387dd4b095723fb0, type: 3}
+  _jumpInput: {fileID: 5087404251867678871, guid: e8d6fea7ba494d84387dd4b095723fb0, type: 3}
+  _AttackInput: {fileID: -3835804455997449000, guid: e8d6fea7ba494d84387dd4b095723fb0, type: 3}
+  _root: {fileID: 7517621873895732461}
+  _speed: 10
+  _MovingThreshold: 0.1
+  _animator: {fileID: 4887317506357613988}
+  _JumpSpeed: 7
+  _rb: {fileID: 7517621873895732450}
+  IsGrounded: 0
+--- !u!114 &8690863555346568091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517621873895732460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7517621873902845426
 GameObject:
   m_ObjectHideFlags: 0
